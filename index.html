@@ -3,22 +3,85 @@
 <head>
     <title>My LeetCode Solutions</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 200px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            height: 100vh;
+            border-right: 1px solid #ccc;
+        }
+        /* Main content */
+        .main {
+            flex: 1;
+            padding: 40px;
+        }
         h1 { color: #333; }
         li { margin: 10px 0; }
-        a { color: #0366d6; text-decoration: none; }
+        a { color: #0366d6; text-decoration: none; cursor: pointer; }
         a:hover { text-decoration: underline; }
+        h2 { font-size: 18px; margin-top: 0; }
     </style>
 </head>
 <body>
-    <h1>My LeetCode Solutions</h1>
-    <p>Welcome to my repository of solved problems. Here are the links:</p>
+    <!-- Left Sidebar -->
+    <div class="left-sidebar">
+        <h2>Categories</h2>
+        <ul>
+            <li><a onclick="showSolutions('DP')">Dynamic Programming</a></li>
+            <li><a onclick="showSolutions('Array')">Arrays</a></li>
+            <li><a onclick="showSolutions('Graph')">Graphs</a></li>
+            <li><a onclick="showSolutions('String')">Strings</a></li>
+        </ul>
+    </div>
 
-    <ul>
-        <li><a href="https://github.com/TausifIqbal/Leetcode/blob/main/solutions/climbing_stairs.cpp" target="_blank">1. Climbing Stairs (C++)</a></li>
-        <li><a href="https://github.com/TausifIqbal/Leetcode/blob/main/solutions/minimum_in_sorted_array.cpp" target="_blank">2. Minimum in sorted array (C++)</a></li>
-        <li><a href="https://github.com/TausifIqbal/Leetcode/blob/main/solutions/contiguous_array.cpp" target="_blank">2. Maximum Length of a contiguous array (C++)</a></li>
-    </ul>
+    <!-- Main Content -->
+    <div class="main" id="mainContent">
+        <h1>My LeetCode Solutions</h1>
+        <p>Loading...</p>
+    </div>
 
+    <script>
+        const solutions = {
+            DP: [
+                { title: "Climbing Stairs (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/climbing_stairs.cpp" }
+            ],
+            Array: [
+                { title: "Minimum in sorted array (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/minimum_in_sorted_array.cpp" },
+                { title: "Maximum Length of a contiguous array (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/contiguous_array.cpp" }
+            ],
+            Graph: [],
+            String: []
+        };
+
+        function showSolutions(category) {
+            const main = document.getElementById("mainContent");
+            main.innerHTML = `<h1>${category} Solutions</h1>`;
+
+            if (solutions[category].length === 0) {
+                main.innerHTML += `<p>No solutions yet in ${category}.</p>`;
+                return;
+            }
+
+            const ul = document.createElement("ul");
+            solutions[category].forEach(sol => {
+                const li = document.createElement("li");
+                li.innerHTML = `<a href="${sol.link}" target="_blank">${sol.title}</a>`;
+                ul.appendChild(li);
+            });
+            main.appendChild(ul);
+        }
+
+        // Show DP solutions by default
+        window.onload = function() {
+            showSolutions('DP');
+        };
+    </script>
 </body>
 </html>
+
