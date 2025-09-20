@@ -33,6 +33,7 @@
     <div class="left-sidebar">
         <h2>Categories</h2>
         <ul>
+            <li><a onclick="showSolutions('All')">Dynamic Programming</a></li>
             <li><a onclick="showSolutions('DP')">Dynamic Programming</a></li>
             <li><a onclick="showSolutions('Array')">Arrays</a></li>
             <li><a onclick="showSolutions('Graph')">Graphs</a></li>
@@ -61,27 +62,37 @@
 	    ]
         };
 
-        function showSolutions(category) {
+       function showSolutions(category) {
             const main = document.getElementById("mainContent");
             main.innerHTML = `<h1>${category} Solutions</h1>`;
 
-            if (solutions[category].length === 0) {
+            let items = [];
+
+            if (category === "All") {
+                // Flatten all categories into one list
+                Object.keys(solutions).forEach(cat => {
+                    items = items.concat(solutions[cat].map(sol => ({...sol, cat})));
+                });
+            } else {
+                items = solutions[category].map(sol => ({...sol, cat: category}));
+            }
+
+            if (items.length === 0) {
                 main.innerHTML += `<p>No solutions yet in ${category}.</p>`;
                 return;
             }
 
             const ul = document.createElement("ul");
-            solutions[category].forEach(sol => {
+            items.forEach(sol => {
                 const li = document.createElement("li");
-                li.innerHTML = `<a href="${sol.link}" target="_blank">${sol.title}</a>`;
+                li.innerHTML = `<a href="${sol.link}" target="_blank">${sol.title}</a> <small>(${sol.cat})</small>`;
                 ul.appendChild(li);
             });
             main.appendChild(ul);
         }
-
         // Show DP solutions by default
         window.onload = function() {
-            showSolutions('DP');
+            showSolutions('All');
         };
     </script>
 </body>
