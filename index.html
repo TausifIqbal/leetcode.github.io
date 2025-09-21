@@ -15,18 +15,45 @@
             background-color: #f4f4f4;
             height: 100vh;
             border-right: 1px solid #ccc;
+            overflow-y: auto;
         }
         /* Main content */
         .main {
             flex: 1;
             padding: 40px;
+            overflow-y: auto;
         }
         h1 { color: #333; }
         li { margin: 10px 0; }
         a { color: #0366d6; text-decoration: none; cursor: pointer; }
         a:hover { text-decoration: underline; }
         h2 { font-size: 18px; margin-top: 0; }
+        pre {
+            background: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .nav-buttons {
+            margin-top: 20px;
+        }
+        .nav-buttons button {
+            margin-right: 10px;
+            padding: 8px 15px;
+            border: none;
+            background-color: #0366d6;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .nav-buttons button:hover {
+            background-color: #024a9c;
+        }
     </style>
+
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
 <body>
     <!-- Left Sidebar -->
@@ -45,62 +72,100 @@
     <!-- Main Content -->
     <div class="main" id="mainContent">
         <h1>My LeetCode Solutions</h1>
-        <p>Loading...</p>
+        <p>Select a category to view solutions.</p>
     </div>
 
     <script>
         const solutions = {
             DP: [
-                { title: "Climbing Stairs (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/climbing_stairs.cpp" }
+                { title: "Climbing Stairs (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/climbing_stairs.cpp" }
             ],
             Array: [
-                { title: "Minimum in sorted array (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/minimum_in_sorted_array.cpp" },
-                { title: "Maximum Length of a contiguous array (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/contiguous_array.cpp" },
-                { title: "Container with most Water  (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/container_with_most_water.cpp" },
-                { title: "K pair with smallest sum  (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/k_pair_with_smallest_sum.cpp" },
-                { title: "Duplicate Number  (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/duplicate_number.cpp" },
+                { title: "Minimum in sorted array (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/minimum_in_sorted_array.cpp" },
+                { title: "Maximum Length of a contiguous array (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/contiguous_array.cpp" },
+                { title: "Container with most Water  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/container_with_most_water.cpp" },
+                { title: "K pair with smallest sum  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/k_pair_with_smallest_sum.cpp" },
+                { title: "Duplicate Number  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/duplicate_number.cpp" },
             ],
             Graph: [
-                { title: "Number of Islands  (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/number_of_islands.cpp" },
-                { title: "Clone graphs  (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/clone_graphs.cpp" },
-	    ],
-	    Node:[
-                { title: "Reverse Node  (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/revese_node.cpp" },
-	    ],
+                { title: "Number of Islands  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/number_of_islands.cpp" },
+                { title: "Clone graphs  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/clone_graphs.cpp" },
+            ],
+            Node:[
+                { title: "Reverse Node  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/revese_node.cpp" },
+            ],
             String: [
-                { title: "Minimum window Substring (C++)", link: "https://github.com/TausifIqbal/Leetcode/blob/main/solutions/minimum_window_substring.cpp" },
-	    ]
+                { title: "Minimum window Substring (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/minimum_window_substring.cpp" },
+            ]
         };
 
-       function showSolutions(category) {
+        let currentItems = [];   // Current category's items
+        let currentIndex = -1;   // Track which solution is open
+
+        function showSolutions(category) {
             const main = document.getElementById("mainContent");
             main.innerHTML = `<h1>${category} Solutions</h1>`;
 
-            let items = [];
-
             if (category === "All") {
-                // Flatten all categories into one list
+                currentItems = [];
                 Object.keys(solutions).forEach(cat => {
-                    items = items.concat(solutions[cat].map(sol => ({...sol, cat})));
+                    currentItems = currentItems.concat(solutions[cat].map(sol => ({...sol, cat})));
                 });
             } else {
-                items = solutions[category].map(sol => ({...sol, cat: category}));
+                currentItems = solutions[category].map(sol => ({...sol, cat: category}));
             }
 
-            if (items.length === 0) {
+            if (currentItems.length === 0) {
                 main.innerHTML += `<p>No solutions yet in ${category}.</p>`;
                 return;
             }
 
             const ul = document.createElement("ul");
-            items.forEach(sol => {
+            currentItems.forEach((sol, index) => {
                 const li = document.createElement("li");
-                li.innerHTML = `<a href="${sol.link}" target="_blank">${sol.title}</a> <small>(${sol.cat})</small>`;
+                li.innerHTML = `<a onclick="loadFile(${index})">${sol.title}</a> <small>(${sol.cat})</small>`;
                 ul.appendChild(li);
             });
             main.appendChild(ul);
         }
-        // Show DP solutions by default
+
+        function loadFile(index) {
+            currentIndex = index;
+            const sol = currentItems[index];
+            const main = document.getElementById("mainContent");
+            main.innerHTML = `<h1>${sol.title}</h1><p>Loading file...</p>`;
+
+            fetch(sol.link)
+                .then(response => response.text())
+                .then(data => {
+                    main.innerHTML = `
+                        <h1>${sol.title}</h1>
+                        <pre><code class="language-cpp">${data}</code></pre>
+                        <div class="nav-buttons">
+                            <button onclick="prevFile()" ${index === 0 ? "disabled" : ""}>⬅ Prev</button>
+                            <button onclick="nextFile()" ${index === currentItems.length - 1 ? "disabled" : ""}>Next ➡</button>
+                        </div>
+                    `;
+                    hljs.highlightAll();
+                })
+                .catch(err => {
+                    main.innerHTML = `<h1>${sol.title}</h1><p style="color:red;">Failed to load file.</p>`;
+                });
+        }
+
+        function prevFile() {
+            if (currentIndex > 0) {
+                loadFile(currentIndex - 1);
+            }
+        }
+
+        function nextFile() {
+            if (currentIndex < currentItems.length - 1) {
+                loadFile(currentIndex + 1);
+            }
+        }
+
+        // Show All solutions by default
         window.onload = function() {
             showSolutions('All');
         };
