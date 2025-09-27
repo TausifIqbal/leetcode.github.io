@@ -29,11 +29,13 @@
         a:hover { text-decoration: underline; }
         h2 { font-size: 18px; margin-top: 0; }
         pre {
-            background: #f4f4f4;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
+	    background: #f4f4f4;
+	    padding: 15px;
+	    border-radius: 5px;
+	    overflow-x: auto;
+	    overflow-y: auto;   /* allow vertical scroll */
+	    max-height: 80vh;   /* prevent overflowing whole page */
+	}
         .nav-buttons {
             margin-top: 20px;
         }
@@ -66,6 +68,8 @@
             <li><a onclick="showSolutions('Graph')">Graphs</a></li>
             <li><a onclick="showSolutions('Node')">Nodes</a></li>
             <li><a onclick="showSolutions('String')">Strings</a></li>
+            <li><a onclick="showSolutions('SlidingWindow')">SlidingWindow</a></li>
+            <li><a onclick="showSolutions('Heap')">Heap</a></li>
         </ul>
     </div>
 
@@ -101,7 +105,7 @@
                 { title: "Clone graphs  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/clone_graph.cpp" },
             ],
             Node:[
-                { title: "Reverse Node  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/revese_node.cpp" },
+                { title: "Reverse Node  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/reverse_node.cpp" },
             ],
             String: [
                 { title: "Minimum window Substring (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/minimum_window_substring.cpp" },
