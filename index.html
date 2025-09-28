@@ -19,10 +19,12 @@
         }
         /* Main content */
         .main {
-            flex: 1;
-            padding: 40px;
-            overflow-y: auto;
-        }
+	    flex: 1;
+	    padding: 40px;
+	    overflow-y: auto;
+	    height: 100vh;   /* ensures main takes full viewport */
+	    box-sizing: border-box;
+	}
         h1 { color: #333; }
         li { margin: 10px 0; }
         a { color: #0366d6; text-decoration: none; cursor: pointer; }
@@ -33,9 +35,12 @@
 	    padding: 15px;
 	    border-radius: 5px;
 	    overflow-x: auto;
-	    overflow-y: auto;   /* allow vertical scroll */
-	    max-height: 80vh;   /* prevent overflowing whole page */
+	    overflow-y: auto;
+	    max-height: 80vh;   /* scroll if code is taller than viewport */
+	    white-space: pre-wrap; /* keeps code wrapping inside */
+	    word-break: break-word; /* prevents giant lines overflowing */
 	}
+
         .nav-buttons {
             margin-top: 20px;
         }
@@ -83,6 +88,7 @@
         const solutions = {
             DP: [
                 { title: "Climbing Stairs (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/climbing_stairs.cpp" }
+                { title: "Number of digit one (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/number_of_digit_one.cpp" }
             ],
             Array: [
                 { title: "Minimum in sorted array (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/minimum_in_sorted_array.cpp" },
@@ -91,14 +97,14 @@
                 { title: "K pair with smallest sum  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/k_pair_with_smallest_sum.cpp" },
                 { title: "Duplicate Number  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/duplicate_number.cpp" },
                 { title: "Number of visible people in a queue  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/number_of_visible_people_in_a_queue.cpp" },
-                { title: "IPO  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/ipo.cpp" },
-                { title: "Sliding window max  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/sliding_window_max.cpp" },
             ],
 	    SlidingWindow:[
                 { title: "Median in sliding window  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/median_in_sliding_window.cpp" },
+                { title: "Sliding window max  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/sliding_window_max.cpp" },
 	    ],
 	    Heap: [
                 { title: "Median from data stream  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/median_from_data_stream.cpp" },
+                { title: "IPO  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/ipo.cpp" },
 	    ],
             Graph: [
                 { title: "Number of Islands  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/number_of_islands.cpp" },
