@@ -1,0 +1,167 @@
+/* --- Global Theme & Variables --- */
+:root {
+    --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --bg-color: #ffffff;
+    --sidebar-bg: #f8f9fa;
+    --border-color: #dee2e6;
+    --text-color: #212529;
+    --text-muted: #6c757d;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --border-radius: 6px;
+}
+
+/* --- Basic Reset & Body --- */
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    height: 100vh;
+    background-color: var(--bg-color);
+    overflow: hidden; /* Prevents double scrollbars */
+}
+
+h1, h2 {
+    color: var(--text-color);
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: var(--spacing-md);
+}
+
+h2 {
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* --- Layout --- */
+.sidebar {
+    width: 250px;
+    flex-shrink: 0; /* Prevents sidebar from shrinking */
+    padding: var(--spacing-lg);
+    background-color: var(--sidebar-bg);
+    height: 100vh;
+    border-right: 1px solid var(--border-color);
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.main {
+    flex: 1; /* Takes up remaining space */
+    padding: var(--spacing-lg) 40px;
+    overflow-y: auto;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+/* --- Sidebar Navigation --- */
+.sidebar ul li {
+    margin: var(--spacing-sm) 0;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #e9ecef;
+    text-decoration: none;
+}
+
+/* New 'active' class for the selected category */
+.sidebar ul li a.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* --- Main Content: Solution List --- */
+.main ul li {
+    margin: var(--spacing-md) 0;
+    font-size: 1.1rem;
+}
+
+.main ul li a {
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.main ul li small {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-left: var(--spacing-sm);
+}
+
+/* --- Main Content: Code View --- */
+pre {
+    /* We remove the background, padding, and border. */
+    /* Let the theme's CSS handle the styling. */
+    overflow-x: auto;
+    max-height: 70vh;
+    border-radius: var(--border-radius); /* We can keep our site's border radius */
+}
+
+/* The theme (atom-one-dark) applies its colors here */
+pre code.hljs {
+    /* We can add our site's padding and radius */
+    padding: var(--spacing-md); 
+    border-radius: var(--border-radius);
+}
+/* --- Navigation Buttons --- */
+.nav-buttons {
+    margin-top: var(--spacing-lg);
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.nav-buttons button {
+    padding: 10px 20px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.nav-buttons button:hover {
+    background-color: var(--primary-hover);
+}
+
+.nav-buttons button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
