@@ -2,7 +2,6 @@
 #include<string>
 #include<vector>
 
-// Diagram   https://lucid.app/lucidchart/7a1c6a5a-372c-4e79-98de-d232f778394b/edit?viewport_loc=202%2C-2662%2C1588%2C1674%2C0_0&invitationId=inv_8e744418-21ab-45c8-9eff-bc0af943e9d8
 
 struct Product{
 	int id;
