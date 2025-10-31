@@ -54,7 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
             { title: "Parking Lot System  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/parking_lot_system.cpp" },
             { title: "Parking Lot System with multiple floors  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/parking_lot_system_v2.cpp" },
                  { title: "Parking Lot System with multiple floors  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/parking_lot_system_v2.cpp" },
-                { title: "Vending Machine  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/vending_machine.cpp" },
+                { 
+			title: "Vending Machine  (C++)", 
+			link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/vending_machine.cpp",
+			diagram: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/vending_machine_uml.png"
+		},
+
         ]
     };
 
@@ -95,38 +100,71 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         mainContent.appendChild(ul);
     }
-
-    // Must be on the 'window' object to be callable from dynamic 'onclick'
+// Must be on the 'window' object to be callable from dynamic 'onclick'
     window.loadFile = function(index) {
         currentIndex = index;
         const sol = currentItems[index];
-        mainContent.innerHTML = `<h1>${sol.title}</h1><p>Loading file...</p>`;
+        mainContent.innerHTML = `<h1>${sol.title}</h1><p>Loading...</p>`;
 
-        fetch(sol.link)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text();
-            })
-            .then(data => {
-                // Escape HTML characters to prevent XSS
-                const escapedData = data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                mainContent.innerHTML = `
-                    <h1>${sol.title}</h1>
-                    <pre><code class="language-cpp">${escapedData}</code></pre>
-                    <div class="nav-buttons">
-                        <button onclick="prevFile()" ${index === 0 ? "disabled" : ""}>⬅ Prev</button>
-                        <button onclick="nextFile()" ${index === currentItems.length - 1 ? "disabled" : ""}>Next ➡</button>
-                    </div>
-                `;
-                // Tell highlight.js to find the new code and style it
+        let diagramHtml = '';
+        let codeHtml = '';
+
+        // 1. Prepare Diagram HTML (if it exists)
+        if (sol.diagram) {
+            diagramHtml = `
+                <h2>Design Diagram</h2>
+                <img src="${sol.diagram}" alt="${sol.title} Diagram" 
+                     style="width: 100%; max-width: 800px; border: 1px solid var(--border-color); border-radius: var(--border-radius); margin-bottom: var(--spacing-lg);">
+            `;
+        }
+
+        // 2. Prepare Code Fetching Promise (if it exists)
+        let codeFetchPromise;
+        if (sol.link) {
+            codeFetchPromise = fetch(sol.link)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    // Escape HTML characters
+                    const escapedData = data.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    codeHtml = `
+                        <h2>Code</h2>
+                        <pre><code class="language-cpp">${escapedData}</code></pre>
+                    `;
+                })
+                .catch(err => {
+                    console.error("Failed to load code:", err);
+                    codeHtml = `<h2>Code</h2><p style="color:red;">Failed to load code file.</p>`;
+                });
+        } else {
+            // If no code link, just create a resolved promise
+            codeFetchPromise = Promise.resolve();
+        }
+
+        // 3. When code (if any) is fetched, render everything
+        codeFetchPromise.then(() => {
+            mainContent.innerHTML = `
+                <h1>${sol.title}</h1>
+                
+                ${diagramHtml}
+                
+                ${codeHtml}
+
+                <div class="nav-buttons">
+                    <button onclick="prevFile()" ${index === 0 ? "disabled" : ""}>⬅ Prev</button>
+                    <button onclick="nextFile()" ${index === currentItems.length - 1 ? "disabled" : ""}>Next ➡</button>
+                </div>
+            `;
+            
+            // Only run highlight.js if there was code to highlight
+            if (sol.link) {
                 hljs.highlightAll();
-            })
-            .catch(err => {
-                console.error("Failed to load file:", err);
-                mainContent.innerHTML = `<h1>${sol.title}</h1><p style="color:red;">Failed to load file. Check the console for details.</p>`;
-            });
+            }
+        });
     }
 
     // Must be on 'window' to be callable from dynamic 'onclick'
