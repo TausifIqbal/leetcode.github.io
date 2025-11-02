@@ -14,20 +14,19 @@ public:
         if( mp.count({id,tight}) ){
             return mp[{id,tight}];
         }
-        int tmp=0;
-        int digit =  num[id]-'0';
-        int limit = tight? digit:9;
+        int total=0;
+        int limit = tight?  num[id]-'0':9;
 
         for(auto ds:digits){
             int d = stoi(ds);
-            if(d < limit){
-                tmp += solve(id+1,false,digits);
-            }else if(d == limit){
-                tmp += solve(id+1,tight,digits);
+            if(tight && d > limit){
+                continue;
             }
+            bool ntight = tight && d==limit;
+            total += solve(id+1,ntight,digits);
         }
 
-        return mp[{id, tight}] = tmp;
+        return mp[{id, tight}] = total;
     }
     int atMostNGivenDigitSet(vector<string>& digits, int n) {
         

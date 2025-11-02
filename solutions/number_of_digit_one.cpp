@@ -1,5 +1,4 @@
 // https://leetcode.com/problems/number-of-digit-one/
-
 class Solution {
 public:
     string num;
@@ -18,11 +17,8 @@ public:
         int limit = tight ? num[id]-'0':9;
         for(int d=0;d<=limit;d++){
             bool ntight = d==limit?tight :0;
-            if(d == 1){
-                total +=  solve(id+1,ntight ,count+1);
-            }else{
-                total += solve(id+1,ntight ,count);
-            }
+            int ncount = d==1? count+1:count;
+            total +=  solve(id+1,ntight ,ncount);
         }
         mp[{id,tight,count}]=total;
         return total;
