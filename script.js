@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
             { title: "Climbing Stairs (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/climbing_stairs.cpp" },
             { title: "Number of digit one (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/number_of_digit_one.cpp" },
             { title: "Minimum skips to arrive at meeting (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/min_skips_to_arrive_at_meeting.cpp" },
-            { title: "Minimum time to finish all jobs (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/min_time_to_finish_all_job.cpp.cpp" },
+            { title: "Minimum time to finish all jobs (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/min_time_to_finish_all_job.cpp" },
+            { title: "Numbers at most N given digit set (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/numbers_at_most_n_given_digit_set.cpp" },
         ],
         Array: [
             { title: "Minimum in sorted array (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/minimum_in_sorted_array.cpp" },
