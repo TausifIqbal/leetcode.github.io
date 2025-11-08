@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
             { title: "Count special Integers (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/count_special_integers.cpp" },
             { title: "Numbers at most N given digit set (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/numbers_at_most_n_given_digit_set.cpp" },
             { title: "Merge stones (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/merge_stone.cpp" },
+            { title: "Cut stick (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/min_cost_to_cut_a_stick.cpp" },
         ],
         Array: [
             { title: "Minimum in sorted array (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/solutions/minimum_in_sorted_array.cpp" },
