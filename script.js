@@ -55,7 +55,11 @@ document.addEventListener("DOMContentLoaded", () => {
         ],
         OOO: [
             { title: "Banking System  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/banking_system.cpp" },
-            { title: "Parking Lot System  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/parking_lot_system.cpp" },
+            { 
+		    title: "Banking System  (C++)", 
+		    link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/banking_system.cpp",
+		    diagram: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/banking_system.png"
+	    },
             { title: "Parking Lot System with multiple floors  (C++)", link: "https://raw.githubusercontent.com/TausifIqbal/Leetcode/main/OOO/parking_lot_system_v2.cpp" },
             { 
 		    title: "Parking Lot System with multiple floors  (C++)",
